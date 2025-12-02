@@ -1,0 +1,67 @@
+package org.CarShop;
+
+
+
+import org.Detect.DetectAnomalies;
+import org.User.User;
+
+import java.util.Objects;
+import java.util.Scanner;
+
+public class Toyota {
+    public void BuyTo(User user , Cars car){
+        if (user.getMoney() >= car.getValue(4)) {
+            while (true) {
+                System.out.println("Now, you can enter 'Yes' or 'yes' or 'Y' or 'y' to decide whether to purchase.");
+                System.out.println("Or you can also enter 'No' or 'no' or 'N' or 'n' to refuse the purchase.");
+                Scanner confirmBuyToyota = new Scanner(System.in);
+                String confirmsBuyToyota = String.valueOf(confirmBuyToyota.nextLine());
+                if (Objects.equals(confirmsBuyToyota, "Yes") || Objects.equals(confirmsBuyToyota, "Y") || Objects.equals(confirmsBuyToyota, "y")) {
+                    user.reduceActionPoint(1);
+                    user.reduceMoney(car.getValue(3));
+                    user.setInitialActionPoint(3);
+                    System.out.println("You get the car!");
+                    break;
+                }
+                else if (Objects.equals(confirmsBuyToyota, "No") || Objects.equals(confirmsBuyToyota, "no") || Objects.equals(confirmsBuyToyota, "N") || Objects.equals(confirmsBuyToyota, "n")) {
+                    System.out.println(" You didn’t find a car you liked today, so you’ll have to come back another time.");
+                    break;
+                }
+                else {
+                    //你输入了错误的内容，请重新输入
+                    System.out.println("You have entered incorrect content. Please re-enter.");
+
+                }
+            }
+        } else {
+            System.out.println("You don't have enough money, so you can only slink back home!");
+        }
+}
+    public void SellTo( User user , Cars car){
+        DetectAnomalies detectAnomalies = new DetectAnomalies();
+        while(true){
+            System.out.println("If you really want to sell the car?");
+            String sellCars = detectAnomalies.Detect();
+            if (Objects.equals(sellCars, "Yes") ||  Objects.equals(sellCars, "yes") || Objects.equals(sellCars, "Y") || Objects.equals(sellCars, "y")){
+                System.out.println("You sell the car!");
+                user.reduceActionPoint(1);
+                user.addMoney(car.getValue(4));
+                user.sellCar(3);
+                break;
+            }
+            else if (Objects.equals(sellCars, "No") || Objects.equals(sellCars, "no") || Objects.equals(sellCars, "N") || Objects.equals(sellCars, "n")) {
+                System.out.println("You do not buy the car.");
+                break;
+            }
+            else {
+                //你输入了错误的内容，请重新输入
+                System.out.println("You have entered incorrect content. Please re-enter.");
+
+            }
+        }
+
+
+
+
+    }
+}
